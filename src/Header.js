@@ -8,7 +8,9 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    this._updateThemeColor()
+    this._updateThemeColor();
+    const { store } = this.context;
+    store.subscribe(() => this._updateThemeColor());
   }
 
   _updateThemeColor() {

@@ -8,20 +8,40 @@ class ThemeSwitch extends Component {
   }
 
   componentDidMount() {
-    this._updateThemeColor()
+    this._updateThemeColor();
+    const { store } = this.context;
+    store.subscribe(() => this._updateThemeColor());
   }
 
   _updateThemeColor() {
-    const { store } = this.context
-    const state = store.getState()
+    const { store } = this.context;
+    const state = store.getState();
     this.setState({ themeColor: state.themeColor })
+  }
+
+  handleSwitchColor(color) {
+    const { store } = this.context;
+    store.dispatch({
+      type: 'CHANGE_COLOR',
+      themeColor: color
+    })
   }
 
   render() {
     return (
       <div>
-        <button style={{ color: this.state.themeColor }}>Red</button>
-        <button style={{ color: this.state.themeColor }}>Blue</button>
+        <button
+          style={{ color: this.state.themeColor }}
+          onClick={this.handleSwitchColor.bind(this, 'red')}
+        >
+          Red
+        </button>
+        <button
+          style={{ color: this.state.themeColor }}
+          onClick={this.handleSwitchColor.bind(this, 'blue')}
+        >
+          Blue
+        </button>
       </div>
     )
   }

@@ -17,7 +17,8 @@ const createStore = (reducer) => {
 
   const dispatch = (action) => {
     state = reducer(state, action);
-    listeners.forEach((listener) => listener())
+    // update the state in the view
+    listeners.forEach((listener) => listener());
   }
 
   // init state
