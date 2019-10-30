@@ -16,9 +16,9 @@ export const connect = (mapStateToProps) => (WrappedComponent) => {
 
     _updateProps() {
       const { store } = this.context
-      let stateProps = mapStateToProps(store.getState(), this.props) // 额外传入 props，让获取数据更加灵活方便
+      let stateProps = mapStateToProps(store.getState(), this.props)
       this.setState({
-        allProps: { // 整合普通的 props 和从 state 生成的 props
+        allProps: {
           ...stateProps,
           ...this.props
         }
