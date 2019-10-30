@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import ThemeContext from './themeContext';
 
 class ThemeSwitch extends Component {
   constructor() {
@@ -9,19 +9,19 @@ class ThemeSwitch extends Component {
 
   componentDidMount() {
     this._updateThemeColor();
-    const { store } = this.context;
-    store.subscribe(() => this._updateThemeColor());
+    const themeStore = this.context;
+    themeStore.subscribe(() => this._updateThemeColor());
   }
 
   _updateThemeColor() {
-    const { store } = this.context;
-    const state = store.getState();
+    const themeStore = this.context;
+    const state = themeStore.getState();
     this.setState({ themeColor: state.themeColor })
   }
 
   handleSwitchColor(color) {
-    const { store } = this.context;
-    store.dispatch({
+    const themeStore = this.context;
+    themeStore.dispatch({
       type: 'CHANGE_COLOR',
       themeColor: color
     })
@@ -47,8 +47,6 @@ class ThemeSwitch extends Component {
   }
 }
 
-ThemeSwitch.contextTypes = {
-  store: PropTypes.object,
-}
+ThemeSwitch.contextType = ThemeContext;
 
 export default ThemeSwitch;

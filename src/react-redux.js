@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import ThemeContext from './themeContext';
 
 export const connect = (mapStateToProps) => (WrappedComponent) => {
   class Connect extends Component {
@@ -9,14 +9,14 @@ export const connect = (mapStateToProps) => (WrappedComponent) => {
     }
 
     componentWillMount() {
-      const { store } = this.context
+      const themeStore = this.context
       this._updateProps()
-      store.subscribe(() => this._updateProps())
+      themeStore.subscribe(() => this._updateProps())
     }
 
     _updateProps() {
-      const { store } = this.context
-      let stateProps = mapStateToProps(store.getState(), this.props)
+      const themeStore = this.context
+      let stateProps = mapStateToProps(themeStore.getState(), this.props)
       this.setState({
         allProps: {
           ...stateProps,
@@ -30,9 +30,7 @@ export const connect = (mapStateToProps) => (WrappedComponent) => {
     }
   }
 
-  Connect.contextTypes = {
-    store: PropTypes.object,
-  };
+  Connect.contextType = ThemeContext;
 
   return Connect;
 }
